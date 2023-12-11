@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import { accounts } from "./Data";
 
-export default function Authenticator({ onSetLoginDetails }) {
+export default function Authenticator({ onSetLoginDetails, currentUser }) {
   const [showSignUp, setShowSignUp] = useState(false);
 
   function handleLogin() {
@@ -20,6 +20,7 @@ export default function Authenticator({ onSetLoginDetails }) {
         <Login
           onHandleLogin={handleLogin}
           onSetLoginDetails={onSetLoginDetails}
+          currentUser={currentUser}
         />
       )}
       {showSignUp && <Signup onHandleSignUp={handleSignUp} />}
@@ -36,7 +37,7 @@ function Header() {
   );
 }
 
-function Login({ onHandleLogin, onSetLoginDetails }) {
+function Login({ onHandleLogin, onSetLoginDetails, currentUser }) {
   const [userName, setUserName] = useState("");
   const [pin, setPin] = useState("");
 
@@ -52,18 +53,20 @@ function Login({ onHandleLogin, onSetLoginDetails }) {
     e.preventDefault();
 
     const user = userName.toLowerCase().split(" ").join("");
+    const password = Number(pin);
 
     const foundAccount = accounts.find((account) => {
       return (
         account.owner.toLowerCase().split(" ").join("") === user &&
-        account.pin === Number("1111")
+        account.pin === password
       );
     });
 
     console.log(foundAccount);
 
     if (foundAccount) {
-      console.log("Logged in");
+      console.log(`${foundAccount.owner}:Logged in`);
+      currentUser.current = foundAccount;
       onSetLoginDetails(true);
     } else {
       console.log("Invalid username or pin");
@@ -116,6 +119,34 @@ function Signup({ onHandleSignUp }) {
     setNewPin(event.target.value);
   }
 
+  const handleSignUp = (event) => {
+    event.preventDefault();
+
+    // Check if an account with the same owner already exists
+    const existingAccount = accounts.find(
+      (account) => account.owner.toLowerCase() === newUsername.toLowerCase()
+    );
+
+    if (existingAccount) {
+      console.log("Account with this owner already exists");
+      // Handle the case where the account already exists, e.g., show an error message
+    } else {
+      // Create a new account object
+      const newAccount = {
+        owner: newUsername,
+        movements: [200, -200, 340, -300, -20, 50, 400, -460], // Add any additional properties as needed
+        interestRate: 0, // Example value
+        pin: Number(newPin),
+      };
+
+      // Add the new account to the accounts array
+      accounts.push(newAccount);
+
+      // Log the new account
+      console.log("New account created:", newAccount);
+    }
+  };
+
   return (
     <div className="form-container" id="signup-form">
       <h2>Sign Up</h2>
@@ -136,7 +167,7 @@ function Signup({ onHandleSignUp }) {
           onChange={handleNewPinChange}
           required
         />
-        <button className="btn--form" type="submit">
+        <button className="btn--form" type="submit" onClick={handleSignUp}>
           Sign Up
         </button>
       </form>
