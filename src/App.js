@@ -1,13 +1,15 @@
 import "./App.css";
 
 import Main from "./Main";
-import Registration from "./Registration";
+import Authenticator from "./Authenticator";
+import { useState } from "react";
 
 function App() {
+  const [loginDetails, setLoginDetails] = useState(false);
   return (
     <div className="App">
-      <Registration />
-      <Main />
+      {!loginDetails && <Authenticator onSetLoginDetails={setLoginDetails} />}
+      {loginDetails && <Main />}
     </div>
   );
 }
