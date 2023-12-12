@@ -1,11 +1,13 @@
 import "./App.css";
 import "./Authenticator.css";
 
-import Main from "./Main";
-
 import { useRef, useState } from "react";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
+import HeaderMain from "./HeaderMain";
+import Balance from "./Balance";
+import Movements from "./Movements";
+import Operation from "./Operation";
 
 function App() {
   const [loginDetails, setLoginDetails] = useState(false);
@@ -18,6 +20,10 @@ function App() {
 
   function toggleSignUp() {
     setShowSignUp(!showSignUp);
+  }
+
+  function handleLogout() {
+    setLoginDetails(false);
   }
 
   return (
@@ -36,10 +42,20 @@ function App() {
           {showSignUp && <Signup onToggleSignUp={toggleSignUp} />}
         </Authenticator>
       )}
-      {loginDetails && <Main currentUser={currentUser} />}
+
+      {loginDetails && (
+        <Main>
+          <HeaderMain user={currentUser} onHandleLogout={handleLogout} />
+          <Balance />
+          <Movements />
+          <Operation />
+        </Main>
+      )}
     </div>
   );
 }
+
+export default App;
 
 function Authenticator({ children }) {
   return <div>{children}</div>;
@@ -54,4 +70,6 @@ function Header() {
   );
 }
 
-export default App;
+function Main({ children }) {
+  return <div>{children}</div>;
+}

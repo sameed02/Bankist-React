@@ -1,3 +1,9 @@
+/*
+ * Use this CSS to learn some intersting techniques,
+ * in case you're wondering how I built the UI.
+ * Have fun! 😁
+ */
+
 * {
   margin: 0;
   padding: 0;
@@ -15,6 +21,13 @@ body {
   background-color: #f3f3f3;
   height: 100vh;
   padding: 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
 }
 
 .welcome {
@@ -283,4 +296,11 @@ h2 {
   font-weight: 600;
 }
 
-/* my css */
+.btn-logout {
+  border: none;
+  border-radius: 0.7rem;
+  font-size: 1.8rem;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  transition: all 0.3s;
+}
