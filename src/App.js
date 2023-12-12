@@ -44,12 +44,17 @@ function App() {
       )}
 
       {loginDetails && (
-        <Main>
+        <>
           <HeaderMain user={currentUser} onHandleLogout={handleLogout} />
-          <Balance />
-          <Movements />
-          <Operation />
-        </Main>
+          <Main>
+            <Balance />
+            <Movements
+              movements={currentUser.current.movements}
+              movementsDates={currentUser.current.movementsDates}
+            />
+            <Operation />
+          </Main>
+        </>
       )}
     </div>
   );
@@ -71,5 +76,5 @@ function Header() {
 }
 
 function Main({ children }) {
-  return <div>{children}</div>;
+  return <div className="app">{children}</div>;
 }
