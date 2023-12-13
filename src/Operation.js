@@ -39,13 +39,13 @@ export default function Operation({
           &rarr;
         </button>
         <label
-          class={`form__label ${
+          className={`form__label ${
             formType === "loan" ? "form__label--loan" : ""
           }`}
         >
           {label1}
         </label>
-        {is2ndFormInput && <label class="form__label">{label2}</label>}
+        {is2ndFormInput && <label className="form__label">{label2}</label>}
       </form>
     </div>
   );
