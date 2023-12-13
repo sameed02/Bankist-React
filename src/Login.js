@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { accounts } from "./Data";
+import accounts from "./Data";
 
 export function Login({ onToggleLogin, onSetLoginDetails, currentUser }) {
   const [userName, setUserName] = useState("");
@@ -40,9 +40,10 @@ export function Login({ onToggleLogin, onSetLoginDetails, currentUser }) {
   return (
     <div className="form-container" id="login-form">
       <h2>Login</h2>
-      <form onSubmit={handleLoginUser}>
+      <form className="form-authenticator" onSubmit={handleLoginUser}>
         <label htmlFor="username">Username</label>
         <input
+          className="input-authenticator"
           type="text"
           name="username"
           value={userName}
@@ -51,19 +52,20 @@ export function Login({ onToggleLogin, onSetLoginDetails, currentUser }) {
         />
         <label htmlFor="password">Pin</label>
         <input
+          className="input-authenticator"
           type="password"
           name="password"
           value={pin}
           onChange={handlePinChange}
           required
         />
-        <button className="btn--form" type="submit">
+        <button className="btn-form" type="submit">
           Login
         </button>
       </form>
       <p className="label-btn">
         Don't have an account?{" "}
-        <button className="btn--header" onClick={onToggleLogin}>
+        <button className="btn-header" onClick={onToggleLogin}>
           Sign up
         </button>
       </p>

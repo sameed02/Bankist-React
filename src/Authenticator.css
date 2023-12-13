@@ -41,7 +41,7 @@ h2 {
   color: #444;
 }
 
-form {
+.form-authenticator {
   display: flex;
   flex-direction: column;
 }
@@ -52,7 +52,7 @@ label {
   color: #444;
 }
 
-input {
+.input-authenticator {
   padding: 12px;
   border: 1px solid #444;
   border-radius: 5px;
@@ -62,7 +62,7 @@ input {
   background-color: #f3f3f3;
 }
 
-.btn--form {
+.btn-form {
   padding: 10px;
   background-color: #b38bff;
   color: #444;
@@ -73,11 +73,11 @@ input {
   transition: background-color 0.2s ease-in-out;
 }
 
-.btn--form:hover {
+.btn-form:hover {
   background-color: #8c5fb2;
 }
 
-.btn--header {
+.btn-header {
   background-color: #f3f3f3;
   text-decoration: none;
   color: #b38bff;
@@ -85,7 +85,7 @@ input {
   border: none;
   transition: color 0.2s ease-in-out;
 }
-.btn--header:hover {
+.btn-header:hover {
   cursor: pointer;
   color: #8c5fb2;
 }

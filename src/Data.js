@@ -32,4 +32,16 @@ const account2 = {
   pin: 2222,
 };
 
-export const accounts = [account1, account2];
+const accounts = [account1, account2];
+
+const options = { day: "2-digit", month: "2-digit", year: "2-digit" };
+const formatter = new Intl.DateTimeFormat("en-GB", options);
+
+accounts.forEach((account) => {
+  account.movementsDates = account.movementsDates.map((dateString) => {
+    const date = new Date(dateString);
+    return formatter.format(date);
+  });
+});
+
+export default accounts;
