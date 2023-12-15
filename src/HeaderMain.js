@@ -1,5 +1,5 @@
 export default function HeaderMain({ user, onHandleLogout }) {
-  const { owner } = user.current;
+  const { owner } = user;
   const userName = owner.split(" ").slice(0, 1);
   return (
     <nav>

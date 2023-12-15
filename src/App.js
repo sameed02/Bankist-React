@@ -1,7 +1,7 @@
 import "./App.css";
 import "./Authenticator.css";
 
-import { useRef, useState } from "react";
+import { useState, useEffect } from "react";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
 import HeaderMain from "./HeaderMain";
@@ -10,22 +10,48 @@ import Movements from "./Movements";
 import Operation from "./Operation";
 import Summary from "./Summary";
 
+import transferMoney from "./TransferMoney";
+import loanMoney from "./LoanMoney";
+import closeAccount from "./CloseAccount";
+
 function App() {
   const [loginDetails, setLoginDetails] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
-  const currentUser = useRef(null);
+  const [transferTo, setTransferTo] = useState("");
+  const [transferAmount, setTransferAmount] = useState("");
+  const [loanAmount, setLoanAmount] = useState("");
+  const [closeAccountUser, setCloseAccountUser] = useState("");
+  const [closeAccountPin, setCloseAccountPin] = useState("");
 
-  function toggleLogin() {
-    setShowSignUp(!showSignUp);
-  }
+  const [currentUser, setCurrentUser] = useState(null);
 
-  function toggleSignUp() {
-    setShowSignUp(!showSignUp);
-  }
+  const [movements, setMovements] = useState([]);
+  const [movementsDates, setMovementsDates] = useState([]);
 
-  function handleLogout() {
-    setLoginDetails(false);
-  }
+  useEffect(() => {
+    if (currentUser) {
+      setMovements(currentUser.movements);
+      setMovementsDates(currentUser.movementsDates);
+    }
+  }, [currentUser]);
+
+  const toggleLogin = () => setShowSignUp(!showSignUp);
+
+  const toggleSignUp = () => setShowSignUp(!showSignUp);
+
+  const handleLogout = () => setLoginDetails(false);
+
+  const handleTransferTo = (e) => setTransferTo(e.target.value);
+
+  const handleTransferAmount = (e) => setTransferAmount(Number(e.target.value));
+
+  const handleLoanAmount = (e) => setLoanAmount(Number(e.target.value));
+
+  const handleCloseAccountUser = (e) => setCloseAccountUser(e.target.value);
+
+  const handleCloseAccountPin = (e) => {
+    setCloseAccountPin(Number(e.target.value));
+  };
 
   return (
     <div className="App">
@@ -37,7 +63,7 @@ function App() {
             <Login
               onToggleLogin={toggleLogin}
               onSetLoginDetails={setLoginDetails}
-              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
             />
           )}
           {showSignUp && <Signup onToggleSignUp={toggleSignUp} />}
@@ -49,10 +75,12 @@ function App() {
           <HeaderMain user={currentUser} onHandleLogout={handleLogout} />
           <Main>
             <Balance />
-            <Movements
-              movements={currentUser.current.movements}
-              movementsDates={currentUser.current.movementsDates}
-            />
+            {currentUser && (
+              <Movements
+                movements={movements}
+                movementsDates={movementsDates}
+              />
+            )}
             <Operation
               operationType={"transfer"}
               headingOperationText={"Transfer Money"}
@@ -65,6 +93,16 @@ function App() {
               formBtnType={"transfer"}
               label1={"Transfer to"}
               label2={"Amount"}
+              inputValue={transferTo}
+              inputValue2={transferAmount}
+              setInputValue={setTransferTo}
+              setInputValue2={setTransferAmount}
+              handleChange={handleTransferTo}
+              handleChange2={handleTransferAmount}
+              handleClick={transferMoney}
+              setMovements={setMovements}
+              setMovementsDates={setMovementsDates}
+              currentUser={currentUser}
             />
             <Operation
               operationType={"loan"}
@@ -74,6 +112,10 @@ function App() {
               formInputClassType1={"loan-amount"}
               inputText={"number"}
               label1={"Amount"}
+              inputValue={loanAmount}
+              setInputValue={setLoanAmount}
+              handleChange={handleLoanAmount}
+              handleClick={loanMoney}
             />
             <Operation
               operationType={"close"}
@@ -87,6 +129,13 @@ function App() {
               formBtnType={"close"}
               label1={"Confirm User"}
               label2={"Confirm Pin"}
+              inputValue={closeAccountUser}
+              inputValue2={closeAccountPin}
+              setInputValue={setCloseAccountUser}
+              setInputValue2={setCloseAccountPin}
+              handleChange={handleCloseAccountUser}
+              handleChange2={handleCloseAccountPin}
+              handleClick={closeAccount}
             />
             <Summary />
             <LogoutTimer />

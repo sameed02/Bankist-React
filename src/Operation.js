@@ -10,7 +10,33 @@ export default function Operation({
   formBtnType,
   label1,
   label2,
+  inputValue,
+  inputValue2,
+  setInputValue,
+  setInputValue2,
+  handleChange,
+  handleChange2,
+  handleClick,
+  setMovements,
+  currentUser,
+  setMovementsDates,
 }) {
+  const handleButtonClick = () => {
+    if (operationType === "transfer" || operationType === "close") {
+      handleClick(
+        inputValue,
+        inputValue2,
+        setMovements,
+        currentUser,
+        setMovementsDates
+      );
+      setInputValue("");
+      setInputValue2("");
+    } else if (operationType === "loan") {
+      handleClick(inputValue, setMovements, currentUser);
+      setInputValue("");
+    }
+  };
   return (
     <div className={`operation operation--${operationType}`}>
       <h2
@@ -24,18 +50,28 @@ export default function Operation({
       >
         {headingOperationText}
       </h2>
-      <form className={`form form--${formType}`}>
+      <form
+        className={`form form--${formType}`}
+        onSubmit={(e) => e.preventDefault()}
+      >
         <input
           type={inputText}
           className={`form__input form__input--${formInputClassType1}`}
+          value={inputValue}
+          onChange={handleChange}
         />
         {is2ndFormInput && (
           <input
             type={inputNumber}
             className={`form__input form__input--${formInputClassType2}`}
+            value={inputValue2}
+            onChange={handleChange2}
           />
         )}
-        <button className={`form__btn form__btn--${formBtnType}`}>
+        <button
+          className={`form__btn form__btn--${formBtnType}`}
+          onClick={handleButtonClick}
+        >
           &rarr;
         </button>
         <label

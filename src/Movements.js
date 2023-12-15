@@ -1,18 +1,18 @@
 export default function Movements({ movements, movementsDates }) {
   const reversedMovements = [...movements].reverse();
+  const reversedMovementsDates = [...movementsDates].reverse();
 
   return (
     <div className="movements">
       {reversedMovements.map((mov, i) => {
         const reverseIndex = movements.length - i;
-        console.log(movements.length);
         return (
           <MovementsRow
             key={i}
             mov={mov}
             index={i}
             transaction={reverseIndex}
-            movementsDates={movementsDates}
+            movementsDates={reversedMovementsDates}
           />
         );
       })}

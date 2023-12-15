@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import accounts from "./Data";
 
-export function Login({ onToggleLogin, onSetLoginDetails, currentUser }) {
+export function Login({ onToggleLogin, onSetLoginDetails, setCurrentUser }) {
   const [userName, setUserName] = useState("");
   const [pin, setPin] = useState("");
 
@@ -30,7 +30,7 @@ export function Login({ onToggleLogin, onSetLoginDetails, currentUser }) {
 
     if (foundAccount) {
       console.log(`${foundAccount.owner}:Logged in`);
-      currentUser.current = foundAccount;
+      setCurrentUser(foundAccount);
       onSetLoginDetails(true);
     } else {
       console.log("Invalid username or pin");
