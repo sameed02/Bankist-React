@@ -1,15 +1,29 @@
-import accounts from "./Data";
-
-export default function closeAccount(userName, pin) {
-  const foundAccount = accounts.find((account) => {
+export default function closeAccount(
+  userName,
+  pin,
+  handleLogout,
+  accountsDb,
+  setAccountsDb
+) {
+  const foundAccount = accountsDb.find((account) => {
     return (
       account.owner.toLowerCase().split(" ").join("") ===
         userName.toLowerCase().split(" ").join("") && account.pin === pin
     );
   });
+
   if (foundAccount) {
-    console.log(`closing account of ${userName} & ${pin}`);
+    const updatedAccounts = accountsDb.filter(
+      (account) =>
+        account.owner.toLowerCase().split(" ").join("") !==
+          foundAccount.owner.toLowerCase().split(" ").join("") &&
+        account.pin !== foundAccount.pin
+    );
+
+    setAccountsDb(updatedAccounts);
+    console.log(updatedAccounts);
+    handleLogout(false);
   } else {
-    console.log("invalid details");
+    console.log("Invalid details");
   }
 }

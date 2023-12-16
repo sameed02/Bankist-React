@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import accounts from "./Data";
+import { accounts } from "./Data";
 
 export function Signup({ onToggleSignUp }) {
   const [newUsername, setNewUsername] = useState("");
@@ -36,8 +36,12 @@ export function Signup({ onToggleSignUp }) {
         owner: newUsername,
         movements: [500],
         movementsDates: [formatter.format(new Date())],
-        interestRate: 0, // Example value
+        interestRate: 1.5,
+        interestValue: 0, // Example value
         pin: Number(newPin),
+        totalDeposit: 0,
+        totalCredit: 0,
+        Balance: 0,
       };
 
       // Add the new account to the accounts array

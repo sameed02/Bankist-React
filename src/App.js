@@ -13,8 +13,10 @@ import Summary from "./Summary";
 import transferMoney from "./TransferMoney";
 import loanMoney from "./LoanMoney";
 import closeAccount from "./CloseAccount";
+import { accounts } from "./Data";
 
 function App() {
+  const [accountsDb, setAccountsDb] = useState(accounts);
   const [loginDetails, setLoginDetails] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [transferTo, setTransferTo] = useState("");
@@ -116,6 +118,11 @@ function App() {
               setInputValue={setLoanAmount}
               handleChange={handleLoanAmount}
               handleClick={loanMoney}
+              currentUser={currentUser}
+              setMovements={setMovements}
+              setMovementsDates={setMovementsDates}
+              accountsDb={accountsDb}
+              setAccountsDb={setAccountsDb}
             />
             <Operation
               operationType={"close"}
@@ -136,6 +143,11 @@ function App() {
               handleChange={handleCloseAccountUser}
               handleChange2={handleCloseAccountPin}
               handleClick={closeAccount}
+              accountsDb={accountsDb}
+              setAccountsDb={setAccountsDb}
+              closeAccountUser={closeAccountUser}
+              closeAccountPin={closeAccountPin}
+              handleLogout={handleLogout}
             />
             <Summary />
             <LogoutTimer />

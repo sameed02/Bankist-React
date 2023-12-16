@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import accounts from "./Data";
+import { accounts } from "./Data";
 
 export function Login({ onToggleLogin, onSetLoginDetails, setCurrentUser }) {
   const [userName, setUserName] = useState("");

@@ -20,9 +20,14 @@ export default function Operation({
   setMovements,
   currentUser,
   setMovementsDates,
+  accountsDb,
+  setAccountsDb,
+  closeAccountUser,
+  closeAccountPin,
+  handleLogout,
 }) {
   const handleButtonClick = () => {
-    if (operationType === "transfer" || operationType === "close") {
+    if (operationType === "transfer") {
       handleClick(
         inputValue,
         inputValue2,
@@ -33,8 +38,18 @@ export default function Operation({
       setInputValue("");
       setInputValue2("");
     } else if (operationType === "loan") {
-      handleClick(inputValue, setMovements, currentUser);
+      handleClick(inputValue, setMovements, setMovementsDates, currentUser);
       setInputValue("");
+    } else if (operationType === "close") {
+      handleClick(
+        closeAccountUser,
+        closeAccountPin,
+        handleLogout,
+        accountsDb,
+        setAccountsDb
+      );
+      setInputValue("");
+      setInputValue2("");
     }
   };
   return (
@@ -69,6 +84,7 @@ export default function Operation({
           />
         )}
         <button
+          onSubmit={(e) => e.preventDefault}
           className={`form__btn form__btn--${formBtnType}`}
           onClick={handleButtonClick}
         >

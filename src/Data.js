@@ -44,4 +44,12 @@ accounts.forEach((account) => {
   });
 });
 
-export default accounts;
+const updatedAccounts = accounts.map((obj) => ({
+  ...obj,
+  interestValue: 0,
+  totalDeposit: 0,
+  totalCredit: 0,
+  Balance: 0,
+}));
+
+export { updatedAccounts as accounts };

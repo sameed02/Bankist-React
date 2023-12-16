@@ -1,4 +1,4 @@
-import accounts from "./Data";
+import { accounts } from "./Data";
 
 const options = { day: "2-digit", month: "2-digit", year: "2-digit" };
 const formatter = new Intl.DateTimeFormat("en-GB", options);
