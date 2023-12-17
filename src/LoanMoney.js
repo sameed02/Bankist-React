@@ -7,7 +7,9 @@ export default function loanMoney(
   loanAmount,
   setMovements,
   setMovementsDates,
-  currentUser
+  currentUser,
+  setInterest,
+  setCurrentUser
 ) {
   console.log(currentUser);
   const foundAccount = accounts.find((account) => {
@@ -19,8 +21,14 @@ export default function loanMoney(
   if (foundAccount) {
     foundAccount.movements.push(loanAmount);
     foundAccount.movementsDates.push(formatter.format(new Date()));
+    const updatedInterest = loanAmount * foundAccount.interestRate;
+    foundAccount.interestValue.push(updatedInterest);
+    const sum = foundAccount.interestValue.reduce(
+      (acc, currVal) => acc + currVal,
+      0
+    );
 
-    console.log(foundAccount.movements);
+    setCurrentUser((user) => ({ ...user, interestValue: [sum] }));
   } else {
     console.log("invalid details");
   }

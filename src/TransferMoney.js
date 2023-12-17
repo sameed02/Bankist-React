@@ -8,7 +8,9 @@ export default function transferMoney(
   amount,
   setMovements,
   currentUser,
-  setMovementsDates
+  setMovementsDates,
+  setTotalCredit,
+  setTotalDebit
 ) {
   const foundAccount = accounts.find((account) => {
     return (
@@ -25,6 +27,16 @@ export default function transferMoney(
 
     currentUser.movementsDates.push(formatter.format(new Date()));
     setMovementsDates(currentUser.movementsDates);
+
+    const totalCredit = currentUser.movements
+      .filter((val) => val > 0)
+      .reduce((acc, currCredit) => acc + currCredit, 0);
+    setTotalCredit(totalCredit);
+
+    const totalDebit = currentUser.movements
+      .filter((val) => val < 0)
+      .reduce((acc, currCredit) => acc + currCredit, 0);
+    setTotalDebit(totalDebit);
 
     console.log(foundAccount.movements);
   } else {

@@ -46,10 +46,10 @@ accounts.forEach((account) => {
 
 const updatedAccounts = accounts.map((obj) => ({
   ...obj,
-  interestValue: 0,
-  totalDeposit: 0,
-  totalCredit: 0,
-  Balance: 0,
+  interestValue: [0],
+  totalDeposit: [0],
+  totalCredit: [0],
+  Balance: [0],
 }));
 
 export { updatedAccounts as accounts };

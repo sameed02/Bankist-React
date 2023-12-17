@@ -25,6 +25,10 @@ export default function Operation({
   closeAccountUser,
   closeAccountPin,
   handleLogout,
+  setInterest,
+  setCurrentUser,
+  setTotalCredit,
+  setTotalDebit,
 }) {
   const handleButtonClick = () => {
     if (operationType === "transfer") {
@@ -33,12 +37,21 @@ export default function Operation({
         inputValue2,
         setMovements,
         currentUser,
-        setMovementsDates
+        setMovementsDates,
+        setTotalCredit,
+        setTotalDebit
       );
       setInputValue("");
       setInputValue2("");
     } else if (operationType === "loan") {
-      handleClick(inputValue, setMovements, setMovementsDates, currentUser);
+      handleClick(
+        inputValue,
+        setMovements,
+        setMovementsDates,
+        currentUser,
+        setInterest,
+        setCurrentUser
+      );
       setInputValue("");
     } else if (operationType === "close") {
       handleClick(

@@ -30,10 +30,31 @@ function App() {
   const [movements, setMovements] = useState([]);
   const [movementsDates, setMovementsDates] = useState([]);
 
+  const [interest, setInterest] = useState([]);
+  const [totalCredit, setTotalCredit] = useState([]);
+  const [totalDebit, setTotalDebit] = useState([]);
+
   useEffect(() => {
     if (currentUser) {
       setMovements(currentUser.movements);
       setMovementsDates(currentUser.movementsDates);
+
+      const totalInterest = currentUser.interestValue.reduce(
+        (acc, currVal) => acc + currVal,
+        0
+      );
+
+      setInterest(totalInterest);
+
+      const credit = currentUser.movements
+        .filter((val) => val > 0)
+        .reduce((acc, currCredit) => acc + currCredit, 0);
+      setTotalCredit(credit);
+
+      const debit = currentUser.movements
+        .filter((val) => val < 0)
+        .reduce((acc, currCredit) => acc + currCredit, 0);
+      setTotalDebit(debit);
     }
   }, [currentUser]);
 
@@ -41,7 +62,9 @@ function App() {
 
   const toggleSignUp = () => setShowSignUp(!showSignUp);
 
-  const handleLogout = () => setLoginDetails(false);
+  const handleLogout = () => {
+    setLoginDetails(false);
+  };
 
   const handleTransferTo = (e) => setTransferTo(e.target.value);
 
@@ -105,6 +128,8 @@ function App() {
               setMovements={setMovements}
               setMovementsDates={setMovementsDates}
               currentUser={currentUser}
+              setTotalCredit={setTotalCredit}
+              setTotalDebit={setTotalDebit}
             />
             <Operation
               operationType={"loan"}
@@ -123,6 +148,8 @@ function App() {
               setMovementsDates={setMovementsDates}
               accountsDb={accountsDb}
               setAccountsDb={setAccountsDb}
+              setInterest={setInterest}
+              setCurrentUser={setCurrentUser}
             />
             <Operation
               operationType={"close"}
@@ -149,7 +176,11 @@ function App() {
               closeAccountPin={closeAccountPin}
               handleLogout={handleLogout}
             />
-            <Summary />
+            <Summary
+              interest={interest}
+              totalCredit={totalCredit}
+              totalDebit={totalDebit}
+            />
             <LogoutTimer />
           </Main>
         </>
