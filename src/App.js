@@ -14,6 +14,7 @@ import transferMoney from "./TransferMoney";
 import loanMoney from "./LoanMoney";
 import closeAccount from "./CloseAccount";
 import { accounts } from "./Data";
+import { LogoutTimer } from "./LogoutTimer";
 
 function App() {
   const [accountsDb, setAccountsDb] = useState(accounts);
@@ -182,7 +183,7 @@ function App() {
               totalCredit={totalCredit}
               totalDebit={totalDebit}
             />
-            <LogoutTimer />
+            <LogoutTimer onHandleLogout={handleLogout} />
           </Main>
         </>
       )}
@@ -207,12 +208,4 @@ function Header() {
 
 function Main({ children }) {
   return <div className="app">{children}</div>;
-}
-
-function LogoutTimer() {
-  return (
-    <p className="logout-timer">
-      You will be logged out in <span className="timer">05:00</span>
-    </p>
-  );
 }

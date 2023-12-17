@@ -31,7 +31,7 @@ function MovementsRow({ mov, index, transaction, movementsDates }) {
         {mov > 0 ? `${transaction} deposit` : `${transaction} withdrawal`}
       </div>
       <div className="movements__date">{movementsDates[index]}</div>
-      <div className="movements__value">{mov},00&nbsp;€</div>
+      <div className="movements__value">{mov}.00&nbsp;₹</div>
     </div>
   );
 }

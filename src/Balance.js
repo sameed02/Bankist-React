@@ -28,7 +28,7 @@ export default function Balance({ totalCredit, totalDebit }) {
           As of <span className="date">{currentDateTime}</span>
         </p>
       </div>
-      <p className="balance__value">{balance}€</p>
+      <p className="balance__value">{balance} ₹</p>
     </div>
   );
 }
