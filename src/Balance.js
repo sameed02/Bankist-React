@@ -1,4 +1,5 @@
-export default function Balance() {
+export default function Balance({ totalCredit, totalDebit }) {
+  const balance = totalCredit - -totalDebit;
   return (
     <div className="balance">
       <div>
@@ -7,7 +8,7 @@ export default function Balance() {
           As of <span className="date">12/12/2023, 16:23</span>
         </p>
       </div>
-      <p className="balance__value">25&nbsp;952,59&nbsp;€</p>
+      <p className="balance__value">{balance}€</p>
     </div>
   );
 }

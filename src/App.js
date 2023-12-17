@@ -99,7 +99,7 @@ function App() {
         <>
           <HeaderMain user={currentUser} onHandleLogout={handleLogout} />
           <Main>
-            <Balance />
+            <Balance totalCredit={totalCredit} totalDebit={totalDebit} />
             {currentUser && (
               <Movements
                 movements={movements}
@@ -130,6 +130,7 @@ function App() {
               currentUser={currentUser}
               setTotalCredit={setTotalCredit}
               setTotalDebit={setTotalDebit}
+              setCurrentUser={setCurrentUser}
             />
             <Operation
               operationType={"loan"}

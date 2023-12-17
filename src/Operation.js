@@ -39,7 +39,8 @@ export default function Operation({
         currentUser,
         setMovementsDates,
         setTotalCredit,
-        setTotalDebit
+        setTotalDebit,
+        setCurrentUser
       );
       setInputValue("");
       setInputValue2("");

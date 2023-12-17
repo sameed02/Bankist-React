@@ -37,7 +37,7 @@ export function Signup({ onToggleSignUp }) {
         movements: [500],
         movementsDates: [formatter.format(new Date())],
         interestRate: 1.5,
-        interestValue: 0, // Example value
+        interestValue: [0], // Example value
         pin: Number(newPin),
         totalDeposit: 0,
         totalCredit: 0,
